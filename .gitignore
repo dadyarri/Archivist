@@ -1,0 +1,383 @@
+### Csharp ###
+.axoCover/*
+.builds
+.cr/personal
+.fake/
+.ionide/
+.localhistory/
+.mfractor/
+.ntvs_analysis.dat
+.paket/paket.exe
+.vs/
+.vshistory/
+_Chutzpah*
+_NCrunch_*
+_Pvt_Extensions
+_ReSharper*/
+_TeamCity*
+_UpgradeReport_Files/
+*.[Cc]ache
+*.[Pp]ublish.xml
+*.[Rr]e[Ss]harper
+*.appx
+*.appxbundle
+*.aps
+*.azurePubxml
+*.bim.layout
+*.bim_*.settings
+*.binlog
+*.btm.cs
+*.btp.cs
+*.build.csdef
+*.cab
+*.cachefile
+*.code-workspace
+*.coverage
+*.coveragexml
+*.dbmdl
+*.dbproj.schemaview
+*.DotSettings.user
+*.dsw
+*.e2e
+*.GhostDoc.xml
+*.gpState
+*.h
+*.ilk
+*.iobj
+*.ipdb
+*.ipr
+*.jfm
+*.jmconfig
+*.ldf
+*.log
+*.mdf
+*.meta
+*.mm.*
+*.msi
+*.msix
+*.msm
+*.msp
+*.ncb
+*.ndf
+*.nuget.props
+*.nuget.targets
+*.nupkg
+*.nvuser
+*.obj
+*.odx.cs
+*.opendb
+*.opensdf
+*.opt
+*.pdb
+*.pfx
+*.pgc
+*.pgd
+*.pidb
+*.plg
+*.proj
+*.psess
+*.pubxml
+*.publishsettings
+*.rptproj.bak
+*.rptproj.rsuser
+*.rsuser
+*.rsp
+*.sbr
+*.scc
+*.sdf
+*.sln.docstates
+*.snupkg
+*.so
+*.spec
+*.suo
+*.svclog
+*.tlb
+*.tli
+*.tlh
+*.tlog
+*.tmp
+*.tmp_proj
+*.tss
+*.user
+*.userosscache
+*.vbp
+*.vbw
+*.VC.db
+*.VC.VC.opendb
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+*.wpftmp.csproj
+*.xsd.cs
+*~
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Bb]in/
+[Bb]uild[Ll]og.*
+[Dd]ebug/
+[Dd]ebugPS/
+[Dd]ebugPublic/
+[Ee]xpress/
+[Ll]og/
+[Ll]ogs/
+[Oo]bj/
+[Rr]elease/
+[Rr]eleasePS/
+[Rr]eleases/
+[Tt]est[Rr]esult*/
+[Ww][Ii][Nn]32/
+~$*
+.axoCover/*
+.cr/personal
+.fake/
+.ionide/
+.localhistory/
+.mfractor/
+.ntvs_analysis.dat
+.paket/paket.exe
+.vs/
+.vshistory/
+_Chutzpah*
+_NCrunch_*
+_Pvt_Extensions
+_ReSharper*/
+_TeamCity*
+_UpgradeReport_Files/
+AppPackages/
+artifacts/
+atlassian-ide-plugin.xml
+AutoTest.Net/
+Backup*/
+bld/
+BenchmarkDotNet.Artifacts/
+BundleArtifacts/
+ClientBin/
+com_crashlytics_export_strings.xml
+coverage*.info
+coverage*.json
+coverage*.xml
+crashlytics.properties
+crashlytics-build.properties
+csx/
+dlldata.c
+DocProject/buildhelp/
+DocProject/Help/*.HxT
+DocProject/Help/*.HxC
+DocProject/Help/*.hhc
+DocProject/Help/*.hhk
+DocProject/Help/*.hhp
+DocProject/Help/Html2
+DocProject/Help/html
+ecf/
+fabric.properties
+FakesAssemblies/
+FodyWeavers.xsd
+Generated\ Files/
+Generated_Code/
+healthchecksdb
+ipch/
+MigrationBackup/
+mono_crash.*
+nCrunchTemp_*
+node_modules/
+nunit-*.xml
+OpenCover/
+orleans.codegen.cs
+Package.StoreAssociation.xml
+paket-files/
+project.fragment.lock.json
+project.lock.json
+publish/
+PublishScripts/
+rcf/
+ScaffoldingReadMe.txt
+ServiceFabricBackup/
+StyleCopReport.xml
+UpgradeLog*.XML
+UpgradeLog*.htm
+x64/
+x86/
+
+### DotnetCore ###
+bin/
+obj/
+node_modules
+wwwroot/node_modules
+
+### PyCharm ###
+# Exclude module files when using Gradle or Maven with auto-import
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
+.idea/$CACHE_FILE$
+.idea/**/aws.xml
+.idea/**/azureSettings.xml
+.idea/**/contentModel.xml
+.idea/**/codestream.xml
+.idea/**/caches/build_file_checksums.ser
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/dbnavigator.xml
+.idea/**/dictionaries
+.idea/**/dynamic.xml
+.idea/**/gradle.xml
+.idea/**/httpRequests
+.idea/**/libraries
+.idea/**/markdown-navigator.xml
+.idea/**/markdown-navigator-enh.xml
+.idea/**/markdown-navigator/
+.idea/**/mongoSettings.xml
+.idea/**/replstate.xml
+.idea/**/shelf
+.idea/**/sonarIssues.xml
+.idea/**/sonarlint/
+.idea/**/sqlDataSources.xml
+.idea/**/tasks.xml
+.idea/**/uiDesigner.xml
+.idea/**/usage.statistics.xml
+.idea/**/workspace.xml
+*.iws
+out/
+cmake-build-*/
+.idea_modules/
+
+### Python ###
+# For a library or package, you might want to ignore these files since the code is
+# intended to run in multiple environments; otherwise, check them in:
+# .python-version
+# It is generally recommended to include pdm.lock in version control.
+#pdm.lock
+# Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
+# This is especially recommended for binary packages to ensure reproducibility, and is more
+# commonly ignored for libraries.
+#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
+#poetry.lock
+# According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+# However, in case of collaboration, if having platform-specific dependencies or dependencies
+# having no cross-platform support, pipenv may install dependencies that don't work, or not
+# install all needed dependencies.
+#Pipfile.lock
+.Python
+.cache
+.coverage
+.coverage.*
+.dmypy.json
+.env
+.eggs/
+.hypothesis/
+.ipynb_checkpoints
+.mypy_cache/
+.nox/
+.pdm.toml
+.pytest_cache/
+.pytype/
+.pybuilder/
+.pyre/
+.ropeproject
+.scrapy
+.spyderproject
+.spyproject
+.tox/
+.venv
+__pypackages__/
+__pycache__/
+*$py.class
+*.cover
+*.egg
+*.egg-info/
+*.manifest
+*.mo
+*.pot
+*.py,cover
+*.py[cod]
+*.sage.py
+*.so
+*.spec
+.installed.cfg
+MANIFEST
+build/
+celerybeat-schedule
+celerybeat.pid
+cover/
+coverage.xml
+cython_debug/
+db.sqlite3
+db.sqlite3-journal
+develop-eggs/
+dist/
+docs/_build/
+downloads/
+eggs/
+env/
+env.bak/
+ENV/
+htmlcov/
+instance/
+ipython_config.py
+lib/
+lib64/
+local_settings.py
+nosetests.xml
+parts/
+pip-delete-this-directory.txt
+pip-log.txt
+poetry.toml
+profile_default/
+pyrightconfig.json
+sdist/
+share/python-wheels/
+site
+target/
+var/
+venv/
+venv.bak/
+.ruff_cache/
+.webassets-cache
+wheels/
+
+### VisualStudio ###
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+# Comment the next line if you want to checkin your web deploy settings,
+# but database connection strings (with potential passwords) will be unencrypted
+#*.pubxml
+# Microsoft Azure Web App publish settings. Comment the next line if you want to
+# checkin your Azure Web App publish settings, but sensitive information contained
+# in these scripts will be unencrypted
+#PublishScripts/
+# The packages folder can be ignored because of Package Restore
+#**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+#!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# files ending in .cache can be ignored
+#*.[Cc]ache
+# but keep track of directories ending in .cache
+#!?*.[Cc]ache/
+# Including strong name files can present a security risk
+# (https://github.com/github/gitignore/pull/2483#issue-259490424)
+#*.snk
+# Since there are multiple workflows, uncomment next line to ignore bower_components
+# (https://github.com/github/gitignore/pull/1529#issuecomment-104372622)
+#bower_components/
+# Cake - Uncomment if you are using it
+# tools/**
+# !tools/packages.config
+# VS Code files for those working on multiple tools
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*- [Bb]ackup.rdl
+*- [Bb]ackup ([0-9]).rdl
+*- [Bb]ackup ([0-9][0-9]).rdl
+$tf/
