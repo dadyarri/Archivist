@@ -348,10 +348,10 @@ namespace Archivist.Views
 
     public class AudioFileItem : INotifyPropertyChanged
     {
-        private string _characterName;
+        private string? _characterName;
 
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
+        public string? FileName { get; set; }
+        public string? FilePath { get; set; }
 
         public string CharacterName
         {
@@ -365,7 +365,7 @@ namespace Archivist.Views
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
