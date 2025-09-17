@@ -1,20 +1,20 @@
-using Microsoft.UI.Xaml.Controls;
+using Archivist.Models;
+using Archivist.Services;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
-using Windows.Storage;
-using Windows.Storage.Pickers;
+using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System;
 using System.Linq;
-using System.Threading;
-using WinRT.Interop;
-using System.Collections.Generic;
-using Microsoft.UI.Dispatching;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using Archivist.Services;
-using Archivist.Models;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using WinRT.Interop;
 
 namespace Archivist.Views
 {
@@ -121,7 +121,7 @@ namespace Archivist.Views
                 SelectedFolderText.Text = "Error: Main window not found.";
                 return;
             }
-            
+
             var hwnd = WindowNative.GetWindowHandle(mainWindow);
             InitializeWithWindow.Initialize(folderPicker, hwnd);
 
@@ -137,14 +137,14 @@ namespace Archivist.Views
         {
             _audioFiles.Clear();
             _remainingFiles.Clear();
-            
+
             try
             {
                 var files = await folder.GetFilesAsync();
                 var audioExtensions = new[] { ".mp3", ".wav", ".m4a", ".aac", ".flac", ".ogg", ".wma" };
-                
+
                 var audioFiles = files.Where(f => audioExtensions.Contains(f.FileType.ToLower())).ToList();
-                
+
                 if (audioFiles.Any())
                 {
                     foreach (var file in audioFiles)
@@ -158,7 +158,7 @@ namespace Archivist.Views
                         _audioFiles.Add(audioFileItem);
                         _remainingFiles.Add(audioFileItem);
                     }
-                    
+
                     // Show step 2 when files are loaded
                     Step2Border.Visibility = Visibility.Visible;
                     NoFilesText.Visibility = Visibility.Collapsed;
@@ -191,7 +191,7 @@ namespace Archivist.Views
                 // Remove from both collections
                 _audioFiles.Remove(audioFile);
                 _remainingFiles.Remove(audioFile);
-                
+
                 // Update button state if no files remain
                 if (!_audioFiles.Any())
                 {
@@ -206,7 +206,7 @@ namespace Archivist.Views
         private async void CreateSummaryButton_Click(object sender, RoutedEventArgs e)
         {
             var includedFiles = _remainingFiles.Where(f => !string.IsNullOrWhiteSpace(f.CharacterName)).ToList();
-            
+
             if (!includedFiles.Any())
             {
                 var dialog = new ContentDialog
@@ -273,7 +273,7 @@ namespace Archivist.Views
 
                 // Start processing
                 var success = await _pythonService.StartProcessing(fileData, vault, subdirectory, format);
-                
+
                 if (!success)
                 {
                     DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, async () =>

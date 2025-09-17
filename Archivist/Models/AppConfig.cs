@@ -33,7 +33,8 @@ namespace Archivist.Models
             {
                 var json = File.ReadAllText(_configPath);
                 return JsonSerializer.Deserialize<AppConfig>(json)!;
-            } else
+            }
+            else
             {
                 return new AppConfig();
             }

@@ -29,4 +29,3 @@ public class FileData
     [JsonPropertyName("character")]
     public string Character { get; set; } = string.Empty;
 }
-

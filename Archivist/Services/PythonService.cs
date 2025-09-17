@@ -1,3 +1,5 @@
+using Archivist.Models;
+using NetMQ;
 using NetMQ.Sockets;
 using System;
 using System.Collections.Generic;
@@ -5,8 +7,6 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Archivist.Models;
-using NetMQ;
 
 namespace Archivist.Services;
 
@@ -55,7 +55,7 @@ public class PythonService : IDisposable
         _pythonProcess.Start();
 
         Thread.Sleep(2000);
-        
+
         InitializeZmqClients();
     }
 
@@ -88,7 +88,7 @@ public class PythonService : IDisposable
                 {
                     var msg = JsonSerializer.Deserialize<ProgressMessage>(messageString);
                     if (msg == null) continue;
-                    
+
                     switch (msg.Type)
                     {
                         case "progress":
@@ -152,19 +152,19 @@ public class PythonService : IDisposable
 
     public async Task<bool> PingPythonService()
     {
-         if (_commandSocket == null) return false;
-         try
-         {
-             _commandSocket.SendFrame(JsonSerializer.Serialize(new { command = "ping" }));
-             var reply = await Task.Run(() => _commandSocket.ReceiveFrameString());
-             var replyData = JsonSerializer.Deserialize<Dictionary<string, object>>(reply);
-             return replyData?.TryGetValue("type", out var type) == true && type?.ToString() == "pong";
-         }
-         catch (Exception ex)
-         {
-             ServerLogReceived?.Invoke($"Ping failed: {ex.Message}");
-             return false;
-         }
+        if (_commandSocket == null) return false;
+        try
+        {
+            _commandSocket.SendFrame(JsonSerializer.Serialize(new { command = "ping" }));
+            var reply = await Task.Run(() => _commandSocket.ReceiveFrameString());
+            var replyData = JsonSerializer.Deserialize<Dictionary<string, object>>(reply);
+            return replyData?.TryGetValue("type", out var type) == true && type?.ToString() == "pong";
+        }
+        catch (Exception ex)
+        {
+            ServerLogReceived?.Invoke($"Ping failed: {ex.Message}");
+            return false;
+        }
     }
 
     public void StopPythonService()
@@ -175,7 +175,7 @@ public class PythonService : IDisposable
         {
             try
             {
-                 // Отправляем команду на выключение серверу
+                // Отправляем команду на выключение серверу
                 _commandSocket.SendFrame(JsonSerializer.Serialize(new { command = "stop" }));
                 _commandSocket.ReceiveFrameString(); // Ждем подтверждения
             }
@@ -196,7 +196,7 @@ public class PythonService : IDisposable
             _progressSocket.Dispose();
             _progressSocket = null;
         }
-        
+
 
         if (_pythonProcess != null && !_pythonProcess.HasExited)
         {
