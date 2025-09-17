@@ -6,5 +6,6 @@ namespace Archivist.Services
     public interface IFilePickerService
     {
         Task<StorageFolder?> PickFolderAsync();
+        Task<StorageFile?> PickFileAsync(string fileTypeFilter = "*");
     }
 }

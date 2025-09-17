@@ -9,6 +9,25 @@ namespace Archivist.Services
 {
     public class FilePickerService : IFilePickerService
     {
+        public async Task<StorageFile?> PickFileAsync(string fileTypeFilter = "*")
+        {
+            var filePicker = new FileOpenPicker();
+            filePicker.FileTypeFilter.Add(fileTypeFilter);
+            filePicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            filePicker.ViewMode = PickerViewMode.List;
+
+            var mainWindow = (Application.Current as App)?.MainWindow;
+            if (mainWindow == null)
+            {
+                return null;
+            }
+
+            var hwnd = WindowNative.GetWindowHandle(mainWindow);
+            InitializeWithWindow.Initialize(filePicker, hwnd);
+
+            return await filePicker.PickSingleFileAsync();
+        }
+
         public async Task<StorageFolder?> PickFolderAsync()
         {
             var folderPicker = new FolderPicker();
