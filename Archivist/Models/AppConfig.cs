@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 
 namespace Archivist.Models
 {
@@ -19,6 +15,8 @@ namespace Archivist.Models
         public string Vault { get; set; } = string.Empty;
         public string SubDirectory { get; set; } = string.Empty;
         public string Format { get; set; } = string.Empty;
+        public string PythonExecutable { get; set; } = string.Empty;
+        public string PythonScriptPath { get; set; } = string.Empty;
 
         public async Task SaveAsync()
         {

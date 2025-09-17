@@ -22,6 +22,7 @@
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
@@ -94,6 +95,26 @@
                    Text="Недопустимые символы: * &quot; \ / : ? &lt;&gt;"
                    Grid.Column="4"
                    Grid.Row="3" />
+
+        <TextBlock Text="Путь до исполняемого файла Python"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   Grid.Column="0"
+                   Grid.Row="4" />
+
+        <TextBlock Text="{x:Bind ViewModel.PythonExecutablePath, Mode=OneWay}"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                   Grid.Column="2"
+                   Grid.Row="4" />
+
+        <Button Content="Выбрать файл"
+                Command="{x:Bind ViewModel.SelectPythonExecutableCommand}"
+                HorizontalAlignment="Center"
+                Grid.Column="4"
+                Grid.Row="4" />
       </Grid>
     </Grid>
     <Border x:Name="SaveNotification"

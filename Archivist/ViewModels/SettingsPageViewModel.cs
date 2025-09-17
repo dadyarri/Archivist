@@ -21,6 +21,8 @@ namespace Archivist.ViewModels
         [ObservableProperty]
         public partial string FilenameFormat { get; set; } = "Сессия №{number}. {name}";
         [ObservableProperty]
+        public partial string PythonExecutablePath { get; set; } = string.Empty;
+        [ObservableProperty]
         public partial Visibility FilenameFormatErrorVisibility { get; set; } = Visibility.Collapsed;
         [ObservableProperty]
         public partial Visibility SaveNotificationVisibility { get; set; } = Visibility.Collapsed;
@@ -55,6 +57,11 @@ namespace Archivist.ViewModels
             if (_config.Format != string.Empty)
             {
                 FilenameFormat = _config.Format;
+            }
+
+            if (_config.PythonExecutable != string.Empty)
+            {
+                PythonExecutablePath = _config.PythonExecutable;
             }
 
             _saveTimer = new Timer(800);
@@ -118,6 +125,17 @@ namespace Archivist.ViewModels
             {
                 await _dialog.ShowDialogAsync("Ошибка", $"Выберите директорию внутри хранилища Obsidian {VaultPath}");
             }
+        }
+
+        [RelayCommand]
+        private async Task SelectPythonExecutableAsync()
+        {
+            var file = await _filePicker.PickFileAsync();
+            if (file == null) { return; }
+
+            PythonExecutablePath = file.Path;
+            _config.PythonExecutable = file.Path;
+            await _config.SaveAsync();
         }
 
         private async void SaveTimer_Elapsed(object? sender, ElapsedEventArgs e)
