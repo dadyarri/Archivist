@@ -23,6 +23,8 @@ namespace Archivist.ViewModels
         [ObservableProperty]
         public partial string PythonExecutablePath { get; set; } = string.Empty;
         [ObservableProperty]
+        public partial string PythonScriptPath { get; set; } = string.Empty;
+        [ObservableProperty]
         public partial Visibility FilenameFormatErrorVisibility { get; set; } = Visibility.Collapsed;
         [ObservableProperty]
         public partial Visibility SaveNotificationVisibility { get; set; } = Visibility.Collapsed;
@@ -62,6 +64,11 @@ namespace Archivist.ViewModels
             if (_config.PythonExecutable != string.Empty)
             {
                 PythonExecutablePath = _config.PythonExecutable;
+            }
+
+            if (_config.PythonScriptPath != string.Empty)
+            {
+                PythonScriptPath = _config.PythonScriptPath;
             }
 
             _saveTimer = new Timer(800);
@@ -133,9 +140,36 @@ namespace Archivist.ViewModels
             var file = await _filePicker.PickFileAsync();
             if (file == null) { return; }
 
-            PythonExecutablePath = file.Path;
-            _config.PythonExecutable = file.Path;
-            await _config.SaveAsync();
+            if ((Path.GetExtension(file.Path) == "exe" && OperatingSystem.IsWindows()) ||
+                ((Path.GetExtension(file.Path) == string.Empty && OperatingSystem.IsLinux())))
+            {
+                PythonExecutablePath = file.Path;
+                _config.PythonExecutable = file.Path;
+                await _config.SaveAsync();
+            }
+            else
+            {
+                await _dialog.ShowDialogAsync("Ошибка", $"Выберите корректный исполняемый файл");
+            }
+        }
+
+        [RelayCommand]
+        private async Task SelectPythonScriptAsync()
+        {
+            var file = await _filePicker.PickFileAsync();
+            if (file == null) { return; }
+
+
+            if (Path.GetExtension(file.Path) != "py")
+            {
+                PythonScriptPath = file.Path;
+                _config.PythonScriptPath = file.Path;
+                await _config.SaveAsync();
+            }
+            else
+            {
+                await _dialog.ShowDialogAsync("Ошибка", $"Выберите корректный файл Python-скрипта");
+            }
         }
 
         private async void SaveTimer_Elapsed(object? sender, ElapsedEventArgs e)

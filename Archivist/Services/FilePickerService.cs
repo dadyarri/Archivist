@@ -9,10 +9,10 @@ namespace Archivist.Services
 {
     public class FilePickerService : IFilePickerService
     {
-        public async Task<StorageFile?> PickFileAsync(string fileTypeFilter = "*")
+        public async Task<StorageFile?> PickFileAsync()
         {
             var filePicker = new FileOpenPicker();
-            filePicker.FileTypeFilter.Add(fileTypeFilter);
+            filePicker.FileTypeFilter.Add("*");
             filePicker.SuggestedStartLocation = PickerLocationId.Desktop;
             filePicker.ViewMode = PickerViewMode.List;
 

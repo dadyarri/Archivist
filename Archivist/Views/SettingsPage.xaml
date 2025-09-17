@@ -23,6 +23,7 @@
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
           <RowDefinition Height="Auto"></RowDefinition>
+          <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto" />
@@ -115,6 +116,26 @@
                 HorizontalAlignment="Center"
                 Grid.Column="4"
                 Grid.Row="4" />
+
+        <TextBlock Text="Путь до Python-скрипта"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   Grid.Column="0"
+                   Grid.Row="5" />
+
+        <TextBlock Text="{x:Bind ViewModel.PythonScriptPath, Mode=OneWay}"
+                   Style="{StaticResource BodyTextBlockStyle}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                   Grid.Column="2"
+                   Grid.Row="5" />
+
+        <Button Content="Выбрать файл"
+                Command="{x:Bind ViewModel.SelectPythonScriptCommand}"
+                HorizontalAlignment="Center"
+                Grid.Column="4"
+                Grid.Row="5" />
       </Grid>
     </Grid>
     <Border x:Name="SaveNotification"

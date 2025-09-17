@@ -224,7 +224,7 @@ namespace Archivist.ViewModels
         {
             try
             {
-                _pythonService.StartPythonService(_appConfig.PythonExecutable);
+                _pythonService.StartPythonService(_appConfig.PythonExecutable, _appConfig.PythonScriptPath);
 
                 var isRunning = await _pythonService.PingPythonService();
                 if (!isRunning)
