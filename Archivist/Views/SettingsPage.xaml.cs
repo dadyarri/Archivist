@@ -1,4 +1,6 @@
-﻿using Archivist.ViewModels;
+﻿using Archivist.Services;
+using Archivist.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -17,8 +19,19 @@ namespace Archivist.Views
 
         public SettingsPage()
         {
+
+            var serviceProvider = App.Current.Services;
+
             InitializeComponent();
-            ViewModel = new SettingsPageViewModel(DispatcherQueue.GetForCurrentThread(), async () => { await ShowSaveNotificationAsync(); });
+            ViewModel = new SettingsPageViewModel(
+                DispatcherQueue.GetForCurrentThread(),
+                async () =>
+                {
+                    await ShowSaveNotificationAsync();
+                },
+                serviceProvider.GetRequiredService<IFilePickerService>(),
+                serviceProvider.GetRequiredService<IDialogService>()
+            );
             DataContext = ViewModel;
         }
 

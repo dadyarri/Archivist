@@ -1,16 +1,14 @@
 ﻿using Archivist.Models;
+using Archivist.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using Windows.Storage.Pickers;
-using WinRT.Interop;
 
 namespace Archivist.ViewModels
 {
@@ -28,16 +26,21 @@ namespace Archivist.ViewModels
         public partial Visibility SaveNotificationVisibility { get; set; } = Visibility.Collapsed;
 
         private AppConfig _config;
-        private readonly char[] _bannedChars = new[] { '*', '"', '\\', '/', ':', '?', '<', '>', '|' };
+        private readonly char[] _bannedChars = ['*', '"', '\\', '/', ':', '?', '<', '>', '|'];
         private Timer _saveTimer;
         private DispatcherQueue _dispatcherQueue;
         private Action _showSaveNotificationAction;
+        private IFilePickerService _filePicker;
+        private IDialogService _dialog;
 
-        public SettingsPageViewModel(DispatcherQueue dispatcherQueue, Action showSaveNotificationAction)
+        public SettingsPageViewModel(DispatcherQueue dispatcherQueue, Action showSaveNotificationAction, IFilePickerService filePicker, IDialogService dialog)
         {
             _dispatcherQueue = dispatcherQueue;
             _showSaveNotificationAction = showSaveNotificationAction;
             _config = AppConfig.Load();
+
+            _filePicker = filePicker;
+            _dialog = dialog;
 
             if (_config.Vault != string.Empty)
             {
@@ -78,22 +81,13 @@ namespace Archivist.ViewModels
         [RelayCommand]
         private async Task SelectFolderAsync()
         {
-            var folderPicker = new FolderPicker();
-            folderPicker.FileTypeFilter.Add("*");
-            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            folderPicker.ViewMode = PickerViewMode.List;
-
-            var hwnd = GetWindowHandle();
-            if (hwnd == IntPtr.Zero)
+            var folder = await _filePicker.PickFolderAsync();
+            if (folder == null)
             {
-                VaultPath = "Error: Main window not found.";
                 return;
             }
 
-            InitializeWithWindow.Initialize(folderPicker, hwnd);
-
-            var folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null && Directory.EnumerateDirectories(folder.Path, ".obsidian").Any())
+            if (Directory.EnumerateDirectories(folder.Path, ".obsidian").Any())
             {
                 VaultPath = folder.Path;
                 _config.Vault = folder.Path;
@@ -101,29 +95,20 @@ namespace Archivist.ViewModels
             }
             else
             {
-                await ShowErrorDialogAsync("Ошибка", "Выберите директорию, являющуюся хранилищем Obsidian");
+                await _dialog.ShowDialogAsync("Ошибка", "Выберите директорию, являющуюся хранилищем Obsidian");
             }
         }
 
         [RelayCommand]
         private async Task SelectSubFolderAsync()
         {
-            var folderPicker = new FolderPicker();
-            folderPicker.FileTypeFilter.Add("*");
-            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            folderPicker.ViewMode = PickerViewMode.List;
-
-            var hwnd = GetWindowHandle();
-            if (hwnd == IntPtr.Zero)
+            var folder = await _filePicker.PickFolderAsync();
+            if (folder == null)
             {
-                SubDirectoryPath = "Error: Main window not found.";
                 return;
             }
 
-            InitializeWithWindow.Initialize(folderPicker, hwnd);
-
-            var folder = await folderPicker.PickSingleFolderAsync();
-            if (folder != null && folder.Path.StartsWith(VaultPath))
+            if (folder.Path.StartsWith(VaultPath))
             {
                 SubDirectoryPath = folder.Path;
                 _config.SubDirectory = folder.Path;
@@ -131,7 +116,7 @@ namespace Archivist.ViewModels
             }
             else
             {
-                await ShowErrorDialogAsync("Ошибка", $"Выберите директорию внутри хранилища Obsidian {VaultPath}");
+                await _dialog.ShowDialogAsync("Ошибка", $"Выберите директорию внутри хранилища Obsidian {VaultPath}");
             }
         }
 
@@ -140,27 +125,6 @@ namespace Archivist.ViewModels
             _config.Format = FilenameFormat;
             await _config.SaveAsync();
             _dispatcherQueue.TryEnqueue(() => _showSaveNotificationAction?.Invoke());
-        }
-
-        private IntPtr GetWindowHandle()
-        {
-            Window? mainWindow = (Application.Current as App)?.MainWindow;
-            return mainWindow != null ? WindowNative.GetWindowHandle(mainWindow) : IntPtr.Zero;
-        }
-
-        private Task ShowErrorDialogAsync(string title, string content)
-        {
-            _dispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, async () =>
-            {
-                var dialog = new ContentDialog
-                {
-                    Title = title,
-                    Content = content,
-                    CloseButtonText = "OK"
-                };
-                await dialog.ShowAsync();
-            });
-            return Task.CompletedTask;
         }
     }
 }

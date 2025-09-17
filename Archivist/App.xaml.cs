@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Archivist.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using System;
 
@@ -27,7 +28,7 @@ namespace Archivist
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             MainWindow = new Views.MainWindow();
             MainWindow.Activate();
@@ -40,6 +41,9 @@ namespace Archivist
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+
+            services.AddSingleton<IFilePickerService, FilePickerService>();
+            services.AddSingleton<IDialogService, DialogService>();
 
             return services.BuildServiceProvider();
         }
