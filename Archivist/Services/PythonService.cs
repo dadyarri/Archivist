@@ -1,4 +1,5 @@
 using Archivist.Models;
+using CommunityToolkit.Diagnostics;
 using NetMQ;
 using NetMQ.Sockets;
 using System;
@@ -29,11 +30,11 @@ public class PythonService : IDisposable
     {
     }
 
-    public void StartPythonService(string? pythonExecutable = null, string? scriptPath = null)
+    public void StartPythonService(string pythonExecutable, string scriptPath)
     {
-        // Use provided paths or default to the project structure
-        pythonExecutable ??= "D:\\Archivist\\Archivist.Backend\\.venv\\Scripts\\python.exe";
-        scriptPath ??= "D:\\Archivist\\Archivist.Backend\\main.py";
+
+        Guard.IsNotNullOrEmpty(pythonExecutable, nameof(pythonExecutable));
+        Guard.IsNotNullOrEmpty(scriptPath, nameof(scriptPath));
 
         if (_cts.IsCancellationRequested)
         {
