@@ -17,15 +17,15 @@ namespace Archivist.ViewModels
     public partial class SettingsPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string vaultPath = "Папка не выбрана";
+        public partial string VaultPath { get; set; } = "Папка не выбрана";
         [ObservableProperty]
-        private string subDirectoryPath = "Папка не выбрана";
+        public partial string SubDirectoryPath { get; set; } = "Папка не выбрана";
         [ObservableProperty]
-        private string filenameFormat = "Сессия №{number}. {name}";
+        public partial string FilenameFormat { get; set; } = "Сессия №{number}. {name}";
         [ObservableProperty]
-        private Visibility filenameFormatErrorVisibility = Visibility.Collapsed;
+        public partial Visibility FilenameFormatErrorVisibility { get; set; } = Visibility.Collapsed;
         [ObservableProperty]
-        private Visibility saveNotificationVisibility = Visibility.Collapsed;
+        public partial Visibility SaveNotificationVisibility { get; set; } = Visibility.Collapsed;
 
         private AppConfig _config;
         private readonly char[] _bannedChars = new[] { '*', '"', '\\', '/', ':', '?', '<', '>', '|' };
@@ -41,17 +41,17 @@ namespace Archivist.ViewModels
 
             if (_config.Vault != string.Empty)
             {
-                vaultPath = _config.Vault;
+                VaultPath = _config.Vault;
             }
 
             if (_config.SubDirectory != string.Empty)
             {
-                subDirectoryPath = _config.SubDirectory;
+                SubDirectoryPath = _config.SubDirectory;
             }
 
             if (_config.Format != string.Empty)
             {
-                filenameFormat = _config.Format;
+                FilenameFormat = _config.Format;
             }
 
             _saveTimer = new Timer(800);
