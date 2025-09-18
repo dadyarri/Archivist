@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Archivist.Services;
+using Archivist.ViewModels;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -11,13 +13,19 @@ namespace Archivist.Views
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private MainViewModel ViewModel { get; }
+
         public MainWindow()
         {
             InitializeComponent();
 
+            var navigationService = new NavigationService(ContentFrame);
+            ViewModel = new MainViewModel(navigationService);
+            //DataContext = ViewModel;
+
             // Set the default page
             MainNavigationView.SelectedItem = MainNavigationView.MenuItems[0];
-            NavigateToPage("CreateSummary");
+            ViewModel.NavigateCommand.Execute((MainNavigationView.SelectedItem as NavigationViewItem)?.Tag?.ToString());
         }
 
         private void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -25,29 +33,7 @@ namespace Archivist.Views
             if (args.SelectedItem is NavigationViewItem item)
             {
                 string? tag = item.Tag?.ToString();
-                if (!string.IsNullOrEmpty(tag))
-                {
-                    NavigateToPage(tag);
-                }
-            }
-        }
-
-        private void NavigateToPage(string pageTag)
-        {
-            switch (pageTag)
-            {
-                case "CreateSummary":
-                    MainNavigationView.Header = "Создать саммари";
-                    ContentFrame.Navigate(typeof(Archivist.Views.CreateSummaryPage));
-                    break;
-                case "ListSummaries":
-                    MainNavigationView.Header = "Список саммари";
-                    ContentFrame.Navigate(typeof(Archivist.Views.ListSummariesPage));
-                    break;
-                case "Settings":
-                    MainNavigationView.Header = "Настройки";
-                    ContentFrame.Navigate(typeof(Archivist.Views.SettingsPage));
-                    break;
+                ViewModel.NavigateCommand.Execute(tag);
             }
         }
     }

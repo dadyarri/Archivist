@@ -44,6 +44,7 @@ namespace Archivist
 
             services.AddSingleton<IFilePickerService, FilePickerService>();
             services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<INavigationService, NavigationService>();
 
             return services.BuildServiceProvider();
         }
