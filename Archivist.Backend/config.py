@@ -24,7 +24,7 @@ class Context:
     filename_format: str = ""
 
     segments: List[Dict[str, Any]] = field(default_factory=list)
-    sorted_sessions: List[Dict[str, Any]] = field(default_factory=list)
+    sorted_segments: List[Dict[str, Any]] = field(default_factory=list)
     summary: str = ""
     final_content: str = ""
     output_path: str = ""
